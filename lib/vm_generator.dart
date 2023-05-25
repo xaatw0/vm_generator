@@ -38,21 +38,34 @@ class VmGenerator extends Generator {
                 ? "''"
                 : null;
 
+        final providerName = '_${getter.name}Provider';
+
+        // final _countProvider = StateProvider<int>((ref) => 0);
         b.fields.add(Field((b) => b
           ..modifier = FieldModifier.final$
-          ..name = '_${getter.name}Provider'
+          ..name = providerName
           ..assignment = Code(
               'StateProvider<${getter.type.returnType}>((ref)=>$defaultValue)')));
 
+        //
         b.methods.add(
           Method((b) => b
-            ..name = 'update${getter.name}'
-            ..requiredParameters.add(Parameter((b) => b
+            ..name = '_${getter.name}'
+            ..optionalParameters.add(Parameter((b) => b
               ..name = 'value'
-              ..type = Reference(getter.type.returnType.toString())))
+              ..type = Reference(getter.type.returnType.toString() + '?')))
             ..returns = Reference('void')
             ..body = Code(
-                ' _ref.read(_${getter.name}Provider.notifier).state = value;')),
+                ' if(value!=null) _ref.read($providerName.notifier).state = value; return _ref.read($providerName);')),
+        );
+
+        // int get count
+        b.methods.add(
+          Method((b) => b
+            ..name = '${getter.name}'
+            ..type = MethodType.getter
+            ..returns = Reference(getter.type.returnType.toString())
+            ..body = Code('return _ref.watch($providerName);')),
         );
       }
 
