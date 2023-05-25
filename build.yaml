@@ -1,0 +1,13 @@
+builders:
+  vm_generator:
+    import: 'package:vm_generator/vm_generator.dart'
+    builder_factories: ['dataBuilderFactory']
+    build_extensions: {'.dart': ['.impl.dart']}
+    auto_apply: root_package
+    build_to: source
+targets:
+  $default:
+    builders:
+      vm_generator:
+        generate_for:
+          - lib/**/*_vm.dart
