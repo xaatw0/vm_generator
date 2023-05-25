@@ -54,15 +54,6 @@ class VmGenerator extends Generator {
             ..body = Code(
                 ' _ref.read(_${getter.name}Provider.notifier).state = value;')),
         );
-
-        b.methods.add(
-          Method((b) => b
-            ..name = '${getter.name}'
-            ..type = MethodType.getter
-            ..returns = Reference('getter.type.returnType.toString()')
-            ..body = Code(
-                ' _ref.read(_${getter.name}Provider.notifier).state = value;')),
-        );
       }
 
       b.methods.add(
