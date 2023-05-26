@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'count_up_vm.dart';
 import 'count_up_vm_interface.dart';
 import 'count_up_vm_dummy.dart';
 
@@ -40,6 +41,13 @@ class _CountUpPageState extends ConsumerState<CountUpPage> {
               '${_vm.count}',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            FilledButton(
+              onPressed: _vm.onAdd2Tapped,
+              child: Text(
+                '${_vm.count2}',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            )
           ],
         ),
       ),

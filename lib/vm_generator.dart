@@ -7,8 +7,8 @@ import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:source_gen/source_gen.dart';
 
-Builder dataBuilderFactory(BuilderOptions options) {
-  return PartBuilder([VmGenerator()], '.impl.dart');
+Builder vmBuilderFactory(BuilderOptions options) {
+  return PartBuilder([VmGenerator()], '.g.dart');
 }
 
 class VmGenerator extends Generator {
@@ -16,12 +16,12 @@ class VmGenerator extends Generator {
   FutureOr<String> generate(LibraryReader library, BuildStep buildStep) async {
     final classElement = library.classes.first;
 
-    final superClass = classElement.supertype;
+    final superClass = classElement.interfaces.first;
 
-    final getters = superClass?.accessors.where((e) => e.isGetter) ?? [];
+    final getters = superClass.accessors.where((e) => e.isGetter);
 
     final klass = Mixin((b) {
-      b.name = '\$${classElement.name}Impl';
+      b.name = '_\$${classElement.name}Impl';
       b.fields.add(
         Field(
           (b) => b
@@ -51,12 +51,12 @@ class VmGenerator extends Generator {
         b.methods.add(
           Method((b) => b
             ..name = '_${getter.name}'
-            ..optionalParameters.add(Parameter((b) => b
+            ..requiredParameters.add(Parameter((b) => b
               ..name = 'value'
-              ..type = Reference(getter.type.returnType.toString() + '?')))
+              ..type = Reference(getter.type.returnType.toString())))
             ..returns = Reference('void')
-            ..body = Code(
-                ' if(value!=null) _ref.read($providerName.notifier).state = value; return _ref.read($providerName);')),
+            ..body =
+                Code('  _ref.read($providerName.notifier).state = value; ')),
         );
 
         // int get count

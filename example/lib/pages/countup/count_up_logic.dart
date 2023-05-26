@@ -5,4 +5,8 @@ class CountUpLogic {
   void countUp() {
     _counter++;
   }
+
+  void countDouble() {
+    _counter = _counter * 2;
+  }
 }

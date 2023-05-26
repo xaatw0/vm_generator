@@ -11,4 +11,13 @@ class CountUpVmDummy implements CountUpVmInterface {
 
   @override
   void onAddTapped() {}
+
+  @override
+  // TODO: implement count2
+  int get count2 => throw UnimplementedError();
+
+  @override
+  void onAdd2Tapped() {
+    // TODO: implement onAdd2Tapped
+  }
 }
