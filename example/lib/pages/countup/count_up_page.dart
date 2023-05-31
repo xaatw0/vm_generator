@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'count_up_vm.dart';
-import 'count_up_vm_interface.dart';
-import 'count_up_vm_dummy.dart';
 
 class CountUpPage extends ConsumerStatefulWidget {
   CountUpPage({super.key, required this.title});
