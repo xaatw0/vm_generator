@@ -36,7 +36,11 @@ class VmGenerator extends Generator {
             ? '0'
             : getter.type.returnType.toString() == 'String'
                 ? "''"
-                : null;
+                : getter.type.returnType.toString() == 'bool'
+                    ? "false"
+                    : getter.type.returnType.toString().startsWith('List')
+                        ? "[]"
+                        : null;
 
         final providerName = '_${getter.name}Provider';
 
