@@ -21,7 +21,7 @@ class VmGenerator extends Generator {
     final getters = superClass.accessors.where((e) => e.isGetter);
 
     final klass = Mixin((b) {
-      b.name = '_\$${classElement.name}Impl';
+      b.name = '_\$${classElement.name}';
       b.fields.add(
         Field(
           (b) => b

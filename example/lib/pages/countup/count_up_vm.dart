@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 part 'count_up_vm.gvm.dart';
 
-class CountUpVm with _$CountUpVmImpl implements CountUpVmInterface {
+class CountUpVm with _$CountUpVm implements CountUpVmInterface {
   final _logic = CountUpLogic();
   final _logic2 = CountUpLogic();
 
