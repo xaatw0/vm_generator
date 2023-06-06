@@ -8,7 +8,7 @@ import 'package:dart_style/dart_style.dart';
 import 'package:source_gen/source_gen.dart';
 
 Builder vmBuilderFactory(BuilderOptions options) {
-  return PartBuilder([VmGenerator()], '.g.dart');
+  return PartBuilder([VmGenerator()], '.gvm.dart');
 }
 
 class VmGenerator extends Generator {

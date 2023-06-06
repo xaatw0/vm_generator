@@ -3,7 +3,7 @@ import 'package:example/pages/countup/count_up_logic.dart';
 import 'count_up_vm_interface.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-part 'count_up_vm.g.dart';
+part 'count_up_vm.gvm.dart';
 
 class CountUpVm with _$CountUpVmImpl implements CountUpVmInterface {
   final _logic = CountUpLogic();
