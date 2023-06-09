@@ -8,7 +8,7 @@ import 'package:dart_style/dart_style.dart';
 import 'package:source_gen/source_gen.dart';
 
 Builder vmBuilderFactory(BuilderOptions options) {
-  return PartBuilder([VmGenerator()], '.g.dart');
+  return PartBuilder([VmGenerator()], '.gvm.dart');
 }
 
 class VmGenerator extends Generator {
@@ -21,7 +21,7 @@ class VmGenerator extends Generator {
     final getters = superClass.accessors.where((e) => e.isGetter);
 
     final klass = Mixin((b) {
-      b.name = '_\$${classElement.name}Impl';
+      b.name = '_\$${classElement.name}';
       b.fields.add(
         Field(
           (b) => b
@@ -36,7 +36,11 @@ class VmGenerator extends Generator {
             ? '0'
             : getter.type.returnType.toString() == 'String'
                 ? "''"
-                : null;
+                : getter.type.returnType.toString() == 'bool'
+                    ? "false"
+                    : getter.type.returnType.toString().startsWith('List')
+                        ? "[]"
+                        : null;
 
         final providerName = '_${getter.name}Provider';
 
