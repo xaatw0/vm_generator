@@ -12,4 +12,4 @@ targets:
         enabled: true
         generate_for:
           include:
-            - lib/**/*_vm.dart
+            - lib/**/*_vm_impl.dart

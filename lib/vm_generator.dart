@@ -44,6 +44,7 @@ class VmGenerator extends Generator {
 
         final providerName = '_${getter.name}Provider';
 
+        // int get count;
         // final _countProvider = StateProvider<int>((ref) => 0);
         b.fields.add(Field((b) => b
           ..modifier = FieldModifier.final$
@@ -51,7 +52,8 @@ class VmGenerator extends Generator {
           ..assignment = Code(
               'StateProvider<${getter.type.returnType}>((ref)=>$defaultValue)')));
 
-        //
+        // int get count;
+        // →_count(value)
         b.methods.add(
           Method((b) => b
             ..name = '_${getter.name}'
@@ -64,6 +66,7 @@ class VmGenerator extends Generator {
         );
 
         // int get count
+        // → int get count
         b.methods.add(
           Method((b) => b
             ..name = '${getter.name}'
@@ -73,6 +76,7 @@ class VmGenerator extends Generator {
         );
       }
 
+      // → _init(Widget ref);
       b.methods.add(
         Method((b) => b
           ..name = '_init'

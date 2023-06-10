@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'count_up_vm.dart';
+import 'impl/count_up_vm_impl.dart';
 
 class CountUpPage extends ConsumerStatefulWidget {
   CountUpPage({super.key, required this.title});
@@ -13,7 +13,7 @@ class CountUpPage extends ConsumerStatefulWidget {
 }
 
 class _CountUpPageState extends ConsumerState<CountUpPage> {
-  final _vm = CountUpVm();
+  final _vm = CountUpVmImpl();
 
   @override
   void initState() {
