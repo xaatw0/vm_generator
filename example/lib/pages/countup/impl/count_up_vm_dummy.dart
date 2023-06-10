@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/src/consumer.dart';
 
-import 'count_up_vm_interface.dart';
+import 'count_up_vm_impl.dart';
 
-class CountUpVmDummy implements CountUpVmInterface {
+class CountUpVmDummy extends CountUpVmImpl {
   @override
   int get count => 1000;
 
