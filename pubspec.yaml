@@ -1,6 +1,6 @@
 name: vm_generator
 description: Genecator  for ViewModel
-version: 0.0.3
+version: 0.0.4
 
 environment:
   sdk: '>=3.0.1 <4.0.0'
