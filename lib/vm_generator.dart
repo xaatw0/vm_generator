@@ -14,8 +14,11 @@ Builder vmBuilderFactory(BuilderOptions options) {
 class VmGenerator extends Generator {
   @override
   FutureOr<String> generate(LibraryReader library, BuildStep buildStep) async {
-    final classElement = library.classes.first;
+    if (library.classes.isEmpty || library.classes.first.interfaces.isEmpty) {
+      return '';
+    }
 
+    final classElement = library.classes.first;
     final superClass = classElement.interfaces.first;
 
     final getters = superClass.accessors.where((e) => e.isGetter);
