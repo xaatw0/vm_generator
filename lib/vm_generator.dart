@@ -35,6 +35,10 @@ class VmGenerator extends Generator {
         ),
       );
       for (final getter in getters) {
+        if (getter.isStatic) {
+          continue;
+        }
+
         final defaultValue = getter.type.returnType.toString() == 'int'
             ? '0'
             : getter.type.returnType.toString() == 'String'
