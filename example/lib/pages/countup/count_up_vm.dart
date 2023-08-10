@@ -10,4 +10,7 @@ abstract interface class CountUpVm {
   void init(WidgetRef ref);
   void onAddTapped();
   void onAdd2Tapped();
+
+  void onNoChange();
+  int noChangeValue();
 }
