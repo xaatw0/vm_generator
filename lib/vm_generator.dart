@@ -64,12 +64,17 @@ class VmGenerator extends Generator {
         b.methods.add(
           Method((b) => b
             ..name = '_${getter.name}'
-            ..requiredParameters.add(Parameter((b) => b
+            ..optionalParameters.add(Parameter((b) => b
               ..name = 'value'
-              ..type = Reference(getter.type.returnType.toString())))
-            ..returns = Reference('void')
-            ..body =
-                Code('  _ref.read($providerName.notifier).state = value; ')),
+              ..type = Reference('${getter.type.returnType}?')))
+            ..returns = Reference(getter.type.returnType.toString())
+            ..body = Code('''
+      if (value !=null){
+        _ref.read($providerName.notifier).state = value; 
+      }
+       return _ref.read($providerName);
+
+                    ''')),
         );
 
         // int get count

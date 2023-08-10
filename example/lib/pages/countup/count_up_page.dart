@@ -45,7 +45,10 @@ class _CountUpPageState extends ConsumerState<CountUpPage> {
                 '${_vm.count2}',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
-            )
+            ),
+            FilledButton(
+                onPressed: () => _vm.onNoChange(),
+                child: Text('${_vm.noChangeValue()}'))
           ],
         ),
       ),
