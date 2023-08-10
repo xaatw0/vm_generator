@@ -61,12 +61,14 @@ class VmGenerator extends Generator {
 
         // int get count;
         // →_count(value)
+        final postReturnType =
+            getter.type.returnType.toString().endsWith('?') ? '' : '?';
         b.methods.add(
           Method((b) => b
             ..name = '_${getter.name}'
             ..optionalParameters.add(Parameter((b) => b
               ..name = 'value'
-              ..type = Reference('${getter.type.returnType}?')))
+              ..type = Reference('${getter.type.returnType}$postReturnType')))
             ..returns = Reference(getter.type.returnType.toString())
             ..body = Code('''
       if (value !=null){
@@ -81,7 +83,7 @@ class VmGenerator extends Generator {
         // → int get count
         b.methods.add(
           Method((b) => b
-            ..name = '${getter.name}'
+            ..name = getter.name
             ..type = MethodType.getter
             ..returns = Reference(getter.type.returnType.toString())
             ..body = Code('return _ref.watch($providerName);')),
@@ -94,9 +96,9 @@ class VmGenerator extends Generator {
           ..name = '_init'
           ..requiredParameters.add(Parameter((b) => b
             ..name = 'ref'
-            ..type = Reference('WidgetRef')))
-          ..returns = Reference('void')
-          ..body = Code('_ref=ref;')),
+            ..type = const Reference('WidgetRef')))
+          ..returns = const Reference('void')
+          ..body = const Code('_ref=ref;')),
       );
     });
 
