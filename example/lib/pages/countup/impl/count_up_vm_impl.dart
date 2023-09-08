@@ -13,6 +13,9 @@ class CountUpVmImpl with _$CountUpVmImpl implements CountUpVm {
   void init(WidgetRef ref) {
     _init(ref);
     _onUpdate();
+    _nullableObj();
+    _nullableObj(Object());
+    _resetNullableObj();
   }
 
   @override
