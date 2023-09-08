@@ -69,8 +69,19 @@ class VmGenerator extends Generator {
             ..optionalParameters.add(Parameter((b) => b
               ..name = 'value'
               ..type = Reference('${getter.type.returnType}$postReturnType')))
+            ..optionalParameters.addAll(defaultValue != null
+                ? []
+                : [
+                    Parameter((b) => b
+                      ..name = 'reset'
+                      ..type = Reference('bool?')
+                      ..named = true)
+                  ])
             ..returns = Reference(getter.type.returnType.toString())
-            ..body = Code('''
+            ..body = Code((defaultValue != null
+                    ? ''
+                    : 'assert(reset!= true||value==null); if (reset==true){_ref.read($providerName.notifier).state =null;}') +
+                '''
       if (value !=null){
         _ref.read($providerName.notifier).state = value; 
       }
