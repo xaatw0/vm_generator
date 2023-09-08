@@ -68,20 +68,10 @@ class VmGenerator extends Generator {
             ..name = '_${getter.name}'
             ..optionalParameters.add(Parameter((b) => b
               ..name = 'value'
+              ..named = false
               ..type = Reference('${getter.type.returnType}$postReturnType')))
-            ..optionalParameters.addAll(defaultValue != null
-                ? []
-                : [
-                    Parameter((b) => b
-                      ..name = 'reset'
-                      ..type = Reference('bool?')
-                      ..named = true)
-                  ])
             ..returns = Reference(getter.type.returnType.toString())
-            ..body = Code((defaultValue != null
-                    ? ''
-                    : 'assert(reset!= true||value==null); if (reset==true){_ref.read($providerName.notifier).state =null;}') +
-                '''
+            ..body = Code('''
       if (value !=null){
         _ref.read($providerName.notifier).state = value; 
       }
@@ -90,6 +80,15 @@ class VmGenerator extends Generator {
                     ''')),
         );
 
+        // resetValue
+        if (defaultValue == null) {
+          final pascal = getter.name.substring(0, 1).toUpperCase() +
+              getter.name.substring(1);
+          b.methods.add(Method((b) => b
+            ..name = '_reset$pascal'
+            ..returns = Reference('void')
+            ..body = Code('_ref.read($providerName.notifier).state = value;')));
+        }
         // int get count
         // → int get count
         b.methods.add(
