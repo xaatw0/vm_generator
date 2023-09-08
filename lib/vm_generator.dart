@@ -87,7 +87,7 @@ class VmGenerator extends Generator {
           b.methods.add(Method((b) => b
             ..name = '_reset$pascal'
             ..returns = Reference('void')
-            ..body = Code('_ref.read($providerName.notifier).state = value;')));
+            ..body = Code('_ref.read($providerName.notifier).state = null;')));
         }
         // int get count
         // → int get count
