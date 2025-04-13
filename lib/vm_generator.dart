@@ -6,6 +6,7 @@ import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:source_gen/source_gen.dart';
+import 'package:pub_semver/pub_semver.dart';
 
 Builder vmBuilderFactory(BuilderOptions options) {
   return PartBuilder([VmGenerator()], '.gvm.dart');
@@ -114,6 +115,7 @@ class VmGenerator extends Generator {
 
     final emitter = DartEmitter(useNullSafetySyntax: true);
 
-    return DartFormatter().format('${klass.accept(emitter)}');
+    return DartFormatter(languageVersion: Version(3, 17, 0))
+        .format('${klass.accept(emitter)}');
   }
 }
